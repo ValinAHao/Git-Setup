@@ -6,6 +6,9 @@ This project provides a script to automate the installation of Git and the setup
 ## Prerequisites
 - A Unix-like operating system (Linux, macOS, etc.)
 - Basic knowledge of using the command line
+- **Optional**: [aichat](https://github.com/sigoden/aichat) CLI tool for the `ac` alias (AI-powered commit messages)
+  - Install on macOS: `brew install aichat`
+  - Install on Linux: Follow instructions at https://github.com/sigoden/aichat#installation
 
 ## Installation
 1. Download the project files from the repository.

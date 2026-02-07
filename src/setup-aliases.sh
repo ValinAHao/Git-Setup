@@ -19,11 +19,18 @@ while IFS= read -r line; do
   
   # Parse the line and trim whitespace
   alias_name=$(echo "$line" | cut -d= -f1 | xargs)
-  git_command=$(echo "$line" | cut -d= -f2- | xargs)
+  # Don't use xargs on git_command to preserve quotes
+  git_command=$(echo "$line" | cut -d= -f2-)
+  # Trim leading/trailing whitespace manually
+  git_command="${git_command#"${git_command%%[![:space:]]*}"}"
+  git_command="${git_command%"${git_command##*[![:space:]]}"}"
   
   if [ -n "$alias_name" ] && [ -n "$git_command" ]; then
     echo "Setting up alias: $alias_name = $git_command"
-    git config --global alias."$alias_name" "$git_command"
+    
+    # Pass the command directly to git config without shell escaping
+    # Git config handles the storage correctly
+    git config --global "alias.$alias_name" "$git_command"
   fi
 done < "$ALIAS_FILE"
 
